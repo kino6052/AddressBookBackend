@@ -48,51 +48,20 @@ public class ContactDao extends BaseHibernateDao<Contact> {
 		return list(0,300,null,null,null);
     }
 	
-    public List<Contact> getContactsForGroup(Long group_id){
-        Map matchProp = MapUtil.mapIt("group_id", group_id);
-        return list(0,300,matchProp,null,null);
-    }
     
+    public List<Contact> getContactsWithContactId(Long contact_id){
+    	Map matchProp = MapUtil.mapIt("contact_id", contact_id);
+    	return list(0,300,matchProp,null,null);
+    }
     
  	public Long getNewContactId(){
          Contact contact = (Contact) daoHelper.findFirst("from " + entityClass.getSimpleName() + " group by id order by contact_id desc" );
          
          if (contact != null){
-         	return contact.getGroup_id() + 1;
+         	return contact.getContact_id() + 1;
          }
          return new Long(1);
-     }
-    
-    // ------- Helper Functions ------ //
-    
-    // Check if a Contact Belongs to a Group
-    public boolean hasGroup(Long contact_id, Long group_id){
-		Contact contact = (Contact) daoHelper.findFirst("from " + entityClass.getSimpleName() + " where group_id=" + contact_id + " and contact_id=" + group_id);
-		if (contact != null) return true;
-		else return false;
-	}
-	
-	public Contact addGroupToContact(Long group_id, Long contact_id, GroupDao groupDao){
-		Contact newContact = null;
-		if (!hasGroup(contact_id, group_id)){
-			Group oldGroup = groupDao.getGroupById(group_id);
-			Contact oldContact = getContactById(contact_id);
-			if (oldContact != null) {
-				// Create New Contact
-				newContact = new Contact(oldContact.getFirst_name(), oldContact.getLast_name(), oldContact.getPhone(), contact_id);
-				newContact.setGroup_id(group_id);
-				newContact = save(newContact);
-				
-				// Create New Group
-				Group newGroup = new Group(oldGroup.getTitle(), group_id);
-				newGroup.setContact_id(contact_id);
-				groupDao.save(newGroup);
-				return newContact;
-			}
-		}
-		return newContact;
-	}
-
+ 	}	
 }
 	
 

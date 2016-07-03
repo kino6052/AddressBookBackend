@@ -8,9 +8,7 @@ public class Contact extends BaseEntity {
     private String first_name;
     private String last_name;
     private String phone;
-    private Long   group_id;
     private Long   contact_id;
-    private Long   user_id;
     
     //private User user;
     
@@ -66,20 +64,5 @@ public class Contact extends BaseEntity {
     public void setContact_id(Long contactId){
     	this.contact_id = contactId;
     }
-    
-    public Long getGroup_id(){
-    	return group_id;
-    }
-    
-    public void setGroup_id(Long groupId){
-    	this.group_id = groupId;
-    }
-    
-    public Long getUser_id() {
-        return user_id;
-    }
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }    
     
 }

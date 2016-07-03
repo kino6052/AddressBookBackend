@@ -43,8 +43,8 @@ public class GroupDao extends BaseHibernateDao<Group> {
 	// Then, to find associated contactacts, you will have to find all contacts
 	// that share the same group_id...
 	// Should that be part of contactDao or groupDao?
+	@SuppressWarnings("unchecked")
 	public List<Group> getUniqueGroups(){
-		@SuppressWarnings("unchecked")
 		List<Group> nonUniqueGroups = (List<Group>) daoHelper.find(0, 300, "from " + entityClass.getSimpleName());
 		return getUniqueGroups(nonUniqueGroups);
 	}
@@ -64,38 +64,6 @@ public class GroupDao extends BaseHibernateDao<Group> {
 		}
 		return (List<Group>) result;
 	}
-
-	public boolean hasContact(Long group_id, Long contact_id){
-		Group group = (Group) daoHelper.findFirst("from " + entityClass.getSimpleName() + " where contact_id=" + contact_id + " and group_id=" + group_id);
-		if (group != null) return true;
-		else return false;
-	}
-	
-	public Group addContactToGroup(Long group_id, Long contact_id, ContactDao contactDao){
-		Group newGroup = null;
-		if (!hasContact(group_id, contact_id)){
-			Group oldGroup = getGroupById(group_id);
-			Contact oldContact = contactDao.getContactById(contact_id);
-			if (oldGroup != null) {
-				// Create New Group
-				newGroup = new Group(oldGroup.getTitle(), group_id);
-				newGroup.setContact_id(contact_id);
-				newGroup = save(newGroup);
-				
-				// Create New Contact
-				Contact newContact = new Contact(oldContact.getFirst_name(), oldContact.getLast_name(), oldContact.getPhone(), oldContact.getContact_id());
-				newContact.setGroup_id(group_id);
-				contactDao.save(newContact);
-				return newGroup;
-			}
-		}
-		return newGroup;
-	}
-	
-	public List<Group> getGroupsWithContact(Long contactId){
-        Map matchProp = MapUtil.mapIt("contact_id", contactId);
-        return list(0,300,matchProp,null,null);
-    }
 }
 
 

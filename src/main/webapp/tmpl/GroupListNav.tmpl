@@ -1,0 +1,16 @@
+<script id="tmpl-GroupListNav" type="text/html">
+  <div class="GroupListNav">
+    <h2>Groups</h2>
+    <div class="list-container">
+
+    </div>
+  </div>
+</script>
+
+<script id="tmpl-GroupListNav-list" type="text/html">
+  <ul>
+    {{#each groups}}
+    <li data-entity="Group" data-entity-id="{{id}}">{{title}}</li>
+    {{/each}}
+  </ul>  
+</script>

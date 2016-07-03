@@ -1,0 +1,32 @@
+.ProjectListNav{
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  border: dashed 1px blue; /* for layout debug */
+}
+
+.ProjectListNav h2{
+  margin: 0;
+  padding: 7px 0 5px 10px;
+  line-height: normal;
+  font-size: 20px; 
+  color: rgba(100,100,100,.5);
+}
+
+.ProjectListNav ul{
+  margin: 0;
+  padding: 0;
+}
+
+.ProjectListNav ul li{
+  list-style: none;
+  color: #555;
+  margin: 0;
+  padding: 5px 0 5px 10px;
+  opacity: .8;
+  cursor: pointer;
+}
+
+.ProjectListNav ul li.sel{
+  font-weight: bold;
+  color: #000;
+}

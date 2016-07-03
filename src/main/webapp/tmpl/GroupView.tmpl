@@ -1,0 +1,14 @@
+<script id="tmpl-GroupView" type="text/html">
+  <div class="GroupView">
+    <h2>Contacts</h2>
+    <div class="list-container"></div>
+  </div>
+</script>
+
+<script id="tmpl-GroupView-list" type="text/html">
+    {{#each contacts}}
+        <b>{{first_name}}</b>
+        <b>{{last_name}}</b>
+        <b>{{phone}}</b>
+    {{/each}}
+</script>

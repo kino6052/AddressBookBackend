@@ -24,91 +24,37 @@ public class ContactWebHandlers {
     public ContactDao contactDao;
     @Inject
     public GroupDao groupDao;
-    
+
+    // Get Contacts
     @WebGet("/api/contacts")
-    public WebResponse apiGetContacts() {
-//        if (user != null) {
-            try {
-                List<Contact> contactList = contactDao.getUniqueContacts();
-                return WebResponse.success(contactList);
-            } catch (Throwable t) {
-                return WebResponse.fail(t);
-            }
-//        }
-//        return WebResponse.fail("Not logged in, no item list.");
+    public WebResponse apiGetContacts(
+		@WebParam("contactId") Long contactId
+    ) 
+    {
+        try {
+        	// Search Contact by Id
+    		if (contactId != null) return WebResponse.success(contactDao.getContactById(contactId));
+    		// Get All (Unique) Contacts
+    		else return WebResponse.success(contactDao.getUniqueContacts());
+        } catch (Throwable t) {
+            return WebResponse.fail(t);
+        }
     }
     
+    // Create Contact
     @WebPost("/api/contacts")
-    public WebResponse apiCreateItem(
-    						@WebParam("first_name") String first_name,
-    						@WebParam("last_name") String last_name,
-    						@WebParam("phone") String phone
-                            ) {
-//        if (user != null) {
-            try {
-                Contact contact = new Contact(first_name, last_name, phone, contactDao.getNewContactId());
-                contact = contactDao.save(contact);
-                return WebResponse.success(contact);
-            } catch (Throwable t) {
-                return WebResponse.fail(t);
-            }
-//        }
-//        return WebResponse.fail("Not logged in, no create.");
-    }
-
-    @WebDelete("/api/contacts/{contactId}")
-    public WebResponse apiDeleteItemById(@WebUser User user, @PathVar("contactId") Long contactId) {
-//        if (user != null) {
-            try {
-                contactDao.delete(contactId);
-                return WebResponse.success(contactId);
-            } catch (Throwable t) {
-                return WebResponse.fail(t);
-            }
-//        }
-//        return WebResponse.fail("Not logged in, no delete.");
-    }
-
-    @WebGet("/api/contacts/group/{groupId}")
-    public WebResponse apiGetContactsFromGroup(@WebUser User user, @PathVar("groupId") Long groupId) {
-//        if (user != null) {
-            try {
-                List<Contact> contacts = contactDao.getContactsForGroup(groupId);
-                return WebResponse.success(contacts);
-            } catch (Throwable t) {
-                return WebResponse.fail(t);
-            }
-//        }
-//        return WebResponse.fail("Not logged in, no item list.");
-    }
-    
-    @WebGet("/api/contacts/{contactId}")
-    public WebResponse apiGetContactById(@WebUser User user, @PathVar("contactId") Long contactId) {
-//        if (user != null) {
-            try {
-                Contact contact = contactDao.getContactById(contactId);
-                return WebResponse.success(contact);
-            } catch (Throwable t) {
-                return WebResponse.fail(t);
-            }
-//        }
-//        return WebResponse.fail("Not logged in, no item list.");
-    }
-    
-    // Add Contact to Group
-    @WebPost("/api/contacts/{contactId}")
-    public WebResponse apiAddContactToGroup(@WebParam("groupId") Long groupId, @PathVar("contactId") Long contactId) {
-//        if (user != null) {
-            try {
-            	Contact contact = contactDao.addGroupToContact(contactId, groupId, groupDao);
-                if (contact != null){
-                	return WebResponse.success(contact);
-                }
-                else return WebResponse.fail("Group Already Has This Contact");
-            } catch (Throwable t) {
-                return WebResponse.fail(t);
-            }
-//        }
-//        return WebResponse.fail("Not logged in, no item list.");
-    }
+    public WebResponse apiCreateContact(
+		@WebParam("first_name") String first_name,
+		@WebParam("last_name") String last_name,
+		@WebParam("phone") String phone
+    )
+    {
+        try {
+            Contact contact = new Contact(first_name, last_name, phone, contactDao.getNewContactId());
+            contact = contactDao.save(contact);
+            return WebResponse.success(contact);
+        } catch (Throwable t) {
+            return WebResponse.fail(t);
+        }
+    }     
 }
