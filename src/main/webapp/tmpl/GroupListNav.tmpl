@@ -10,7 +10,20 @@
 <script id="tmpl-GroupListNav-list" type="text/html">
   <ul>
     {{#each groups}}
-    <li data-entity="Group" data-entity-id="{{id}}">{{title}}</li>
+    <li data-entity="Group">
+        <a data-entity-id="{{group_id}}">{{title}}</a>
+        <div class="contactList-container">
+        </div>
+        <i>Add Contact</i>
+    </li>
     {{/each}}
   </ul>  
+</script>
+
+<script id="tmpl-GroupListNav-contactList" type="text/html">
+    <ul>
+    {{#each contacts}}
+        <li data-entity="Contact" data-entity-id="{{contact_id}}">{{first_name}} {{last_name}} {{contact_id}}</li>
+    {{/each}}
+    </ul>
 </script>

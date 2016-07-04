@@ -6,7 +6,7 @@
  */
 (function() {
 	
-	brite.registerView("ContactView",{
+	brite.registerView("ContactListView",{
 		
 		create: function(data){
 			var view = this;
@@ -14,7 +14,7 @@
 			// if the contact is given, then, just render it. 
 			if (data.contact){
 				view.contact = data.contact;
-				return render("tmpl-ContactView",{contacts:view.contact});
+				return render("tmpl-ContactListView",{contacts:view.contact});
 			}
 			// otherwise, we fetch it and return the appropriate promise.
 			else{
@@ -22,7 +22,7 @@
                 // but for now I just fetch all contacts to display them in the view
 				return app.contactDao.get({}).pipe(function(contacts){
 					view.contact = contacts;
-					return render("tmpl-ContactView",{contacts:contacts});
+					return render("tmpl-ContactListView",{contacts:contacts});
 				});		
 			}
 		}, 
@@ -31,27 +31,20 @@
 			var view = this;
 			
 			// Persist this element at the view for future use
-			view.$sectionContent = view.$el.find(".list-container");
+			 view.$sectionContent = view.$el.find(".list-container");
 			
-			refreshTable.call(view); 	
-		},
-        
-        docEvents: {
-            // SELECT CONTACT: 3) Update the View
-            "CONTACT_SELECTION_CHANGE": function(event, extra){
-                console.log(extra);
-                var view = this;
-                view.$sectionContent.bEmpty();
-                refreshTable.call(this, extra.contact);
-            }
-        }
+			 refreshTable.call(view); 	
+		}
 	});
 	
 	// --------- Private Methods --------- //
-	function refreshTable(contact){
+	function refreshTable(){
 		var view = this;
-        var contactHtml = render("tmpl-ContactView-list", {contact:contact});
-        view.$sectionContent.html(contactHtml); 
+		
+        return app.contactDao.get({}).done(function(contacts){
+           var taskTableHtml = render("tmpl-ContactListView-list", {contacts:contacts});
+           view.$sectionContent.html(taskTableHtml); 
+        });
 		// return app.taskDao.list({match:{projectId:view.project.id}}).done(function(taskList){
 		// 	var taskTableHtml = render("tmpl-ProjectView-taskList",{tasks:taskList});
 		// 	view.$sectionContent.html(taskTableHtml);			

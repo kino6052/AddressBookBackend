@@ -42,9 +42,10 @@ var RemoteDaoHandler;
 	// 	return RemoteDaoHandler.executeAjax(dfd,url,params);
 	// };
     
-    RemoteDaoHandler.prototype.get = function(params) {
+    RemoteDaoHandler.prototype.get = function(params, accessEntity) {
 		var dfd = $.Deferred();
-		var url = this._opts.contextPath + this.entityType();
+        var auxilary = accessEntity?('/' + accessEntity):'';
+		var url = this._opts.contextPath + this.entityType() + auxilary;
 		return RemoteDaoHandler.executeAjax(dfd,url,params);
 	};
 	

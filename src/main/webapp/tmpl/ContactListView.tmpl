@@ -1,0 +1,14 @@
+<script id="tmpl-ContactListView" type="text/html">
+  <div class="ContactListView">
+    <h2>Contacts</h2>
+    <div class="list-container"></div>
+  </div>
+</script>
+
+<script id="tmpl-ContactListView-list" type="text/html">
+    <ul>
+    {{#each contacts}}
+        <li>{{first_name}} {{last_name}}</li>
+    {{/each}}
+    </u>
+</script>
