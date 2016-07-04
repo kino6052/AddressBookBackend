@@ -1,18 +1,35 @@
 <script id="tmpl-MainView" type="text/html">
   <div class="MainView">
-    
-    <div class="MainView-topNav">
-      <h2>Address Book</h2>
-      <p>Add Contact</p>
-    </div>
-    
-    <div class="MainView-left"></div>
-    
-    <div class="MainView-right"></div>
-    
-    <div class="MainView-content">
-      <div class="MainView-contactViewPanel"></div>
-    </div>
-    
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Address Book</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a id="newContact">Add Contact</a></li>
+                    <li><a href="#">Add Group</li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+        <div class="row">
+            <div class="MainView-left col-xs-4"></div>
+            
+            <div class="MainView-contactViewPanel  col-xs-8"></div>
+            
+            <div class="MainView-newContactForm"></div>
+            
+            <div class="MainView-newGroupForm"></div>
+            
+            <div class="MainView-contactList"></div>
+        </div><!--row-->
+    </div><!--container-->
   </div>
 </script>

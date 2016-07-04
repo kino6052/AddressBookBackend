@@ -22,6 +22,13 @@
     },
         
         events: {
+            // DOM EVENTS
+            "click; #newContact": function(event){
+                var view = this;
+                view.$el.trigger("DO_OPEN_CONTACT_FORM");   
+            },
+            
+            // APP EVENTS
             // CONTACT SELECTION: 2) DO_SELECT_CONTACT -> CONTACT_SELECTION_CHANGE
             "DO_SELECT_CONTACT": function(event, extra){
               var view = this;
@@ -29,6 +36,16 @@
                 view.$el.trigger("CONTACT_SELECTION_CHANGE", {contact:contact});      
               })
             },
+            
+            "DO_OPEN_CONTACT_FORM": function(event){
+                var view = this;
+                brite.display("NewContactFormView", view.$el.find(".MainView-newContactForm"));
+            },
+            
+            "DO_CLOSE_CONTACT_FORM": function(event){
+                var view = this;
+                view.$el.find(".MainView-newContactForm").bEmpty();
+            }
         }
     });
 

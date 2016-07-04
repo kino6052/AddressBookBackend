@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <title>Brite - TaskManager Sample - Tutorial 01</title>
+    <title>Address Book</title>
 
     <!-- Note: In real application, should not have the ../../../others/ (just to avoid duplications across sample apps)
                it should be href="bootstrap/css/bootstrap.min.css
