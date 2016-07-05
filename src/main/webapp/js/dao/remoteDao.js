@@ -48,6 +48,13 @@ var RemoteDaoHandler;
 		var url = this._opts.contextPath + this.entityType() + auxilary;
 		return RemoteDaoHandler.executeAjax(dfd,url,params);
 	};
+    
+    RemoteDaoHandler.prototype.addContactToGroup = function(params){
+        var dfd = $.Deferred();
+        var url = this._opts.contextPath + 'addContactToGroup';
+        console.log(params);
+        return RemoteDaoHandler.executeAjax(dfd,url,params,true);
+    };
 	
 	/**
 	 * DAO Interface: Return a deferred object for this objectType and options
@@ -77,12 +84,10 @@ var RemoteDaoHandler;
 	 *
 	 * @param {Object} newEntity if null, does nothing (TODO: needs to throw exception)
 	 */
-	RemoteDaoHandler.prototype.create = function(newEntity) {
+	RemoteDaoHandler.prototype.create = function(params) {
 		var dfd = $.Deferred();
-		var propsStr = JSON.stringify(newEntity);
-		var data = {props:propsStr};
-		var url = this._opts.contextPath + this._opts["create"] + "-" + this.entityType();
-		return RemoteDaoHandler.executeAjax(dfd,url,data,true);
+		var url = this._opts.contextPath + this.entityType();
+		return RemoteDaoHandler.executeAjax(dfd,url,params,true);
 	};
 
 

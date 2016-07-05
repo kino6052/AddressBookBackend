@@ -36,6 +36,13 @@
                 var $li = $(event.currentTarget);
                 var contactId = $li.attr("data-entity-id");
                 this.$el.trigger("DO_SELECT_CONTACT", {contactId:contactId});
+            },
+            
+            // ADD CONTACT TO GROUP 1) Click on <span> element
+            "click; span.addContact": function(event){
+                var $span = $(event.currentTarget);
+                var groupId = $span.attr("data-entity-id");
+                this.$el.trigger("DO_OPEN_CONTACT_LIST", groupId);
             }
         },
         docEvents: {
@@ -54,7 +61,20 @@
                 //$listContainer = view.$el.find("li[data-entity-id='" + extra.group.id + "'] > .contactList-container" ).bEmpty();
                 view.$el.find(".contactList-container").bEmpty();
                 refreshList.call(view, extra.groupId, 'group');
-            }   
+            },
+            "CONTACT_ADDED": function(event){
+                var view = this;
+                view.$el.find(".contactList-container").bEmpty();
+                refreshList.call(view);
+                view.$el.trigger("DO_CLOSE_CONTACT_LIST");
+            },
+            "GROUP_CREATED": function(event){
+                var view = this;
+                view.$el.find(".contactList-container").bEmpty();
+                refreshList.call(view);
+                view.$el.trigger("DO_CLOSE_GROUP_FORM");
+            }
+              
         }
 	});
 		

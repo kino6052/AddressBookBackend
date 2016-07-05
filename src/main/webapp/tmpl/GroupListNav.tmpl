@@ -11,7 +11,7 @@
   <ul>
     {{#each groups}}
     <li data-entity="Group">
-        <span class="glyphicon glyphicon-plus pull-right"></span>
+        <span data-entity-id="{{group_id}}" class="glyphicon glyphicon-plus pull-right addContact"></span>
         <a data-entity-id="{{group_id}}">{{title}}</a>
         <div class="contactList-container">
         </div>
